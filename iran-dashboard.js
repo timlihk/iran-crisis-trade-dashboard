@@ -359,6 +359,9 @@
       <div class="detail-copy">
         <p class="note"><strong>Research view:</strong> ${escapeHtml(row.oneLiner)}</p>
         <p class="note"><strong>Thesis:</strong> ${escapeHtml(row.thesis)}</p>
+        ${row.financials ? `<p class="note"><strong>Financials:</strong> ${escapeHtml(row.financials)}</p>` : ""}
+        ${row.marketView ? `<p class="note"><strong>Current market view:</strong> ${escapeHtml(row.marketView)}</p>` : ""}
+        ${row.dislocation ? `<p class="note"><strong>Expectation dislocation:</strong> ${escapeHtml(row.dislocation)}</p>` : ""}
         <p class="note"><strong>Why now:</strong> ${escapeHtml(row.whyNow)}</p>
         <p class="note"><strong>Why still underfollowed:</strong> ${escapeHtml(row.whyUnderfollowed)}</p>
         <p class="note"><strong>Invalidation:</strong> ${escapeHtml(row.invalidation)}</p>
