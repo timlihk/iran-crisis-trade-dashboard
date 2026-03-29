@@ -325,6 +325,7 @@
         <div class="detail-links">
           <a class="detail-link" href="${escapeHtml(getYahooUrl(row))}" target="_blank" rel="noreferrer">Yahoo</a>
           <a class="detail-link" href="${escapeHtml(getTradingViewUrl(row))}" target="_blank" rel="noreferrer">TradingView</a>
+          <a class="detail-link" href="${escapeHtml(getRedditUrl(row))}" target="_blank" rel="noreferrer">Reddit</a>
           <span class="${verdictClass(row.verdict)} verdict">${escapeHtml(row.verdict)}</span>
         </div>
       </div>
@@ -552,6 +553,11 @@
       return `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(tradingViewSymbol)}`;
     }
     return `https://www.tradingview.com/symbols/${encodeURIComponent(row.ticker)}/`;
+  }
+
+  function getRedditUrl(row) {
+    const query = `${row.ticker} ${row.name} stock`;
+    return `https://www.reddit.com/search/?q=${encodeURIComponent(query)}&sort=new`;
   }
 
   function getTradingViewSymbol(row) {
