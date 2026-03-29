@@ -36,6 +36,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Cheniere generated about $15.7 billion of 2025 revenue and roughly $8.0 billion of adjusted EBITDA, with a heavily contracted base and large recurring distributable cash flow.",
       marketView: "The market mostly treats LNG as the premium, already-discovered U.S. LNG exporter with solid but not explosive upside because contracts make the story look utility-like.",
       dislocation: "The current view still understates how much duration sits in a multi-year Qatar outage: Cheniere keeps the contracted floor, but tighter global balances can lift marketing margins, contract optionality, and strategic value for longer than the market usually discounts.",
+      socialSentiment: "Reddit and indexed X read as broadly bullish but not euphoric: LNG is seen as the quality, already-won LNG name. The social gap is not enthusiasm, it is that many posters still frame it as a stable exporter rather than a multi-year strategic scarcity asset.",
       links: [
         { label: "Cheniere 2025 10-K", url: "https://www.sec.gov/Archives/edgar/data/3570/000000357026000005/lng-20251231.htm", note: "Shows long contract duration and structural LNG demand gap discussion." },
         { label: "IEA Middle East Energy Markets", url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets", note: "Tracks Gulf LNG disruption and supply shock." }
@@ -65,6 +66,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Williams produced about $7.1 billion of adjusted EBITDA in 2025 and roughly $2.0 billion in Q1 2025, with relatively low direct commodity exposure versus upstream gas names.",
       marketView: "The market sees WMB as a high-quality dividend and multiple expansion story, but still mostly as a bond-like midstream compounder.",
       dislocation: "That framing misses the embedded LNG call option. If Gulf Coast gas and LNG infrastructure becomes more strategic because of prolonged Middle East disruption, Williams deserves a higher-quality infrastructure scarcity premium than a plain income multiple.",
+      socialSentiment: "Retail chatter is light and mostly income-oriented. Reddit and indexed X posts generally talk about yield, stability, and AI-power demand rather than Hormuz or LNG corridor scarcity, which supports the idea that the geopolitical upside is still underappreciated.",
       links: [
         { label: "Williams 2025 Annual Report", url: "https://www.sec.gov/Archives/edgar/data/107263/000119312526112664/wmb_2025_ars.pdf", note: "Includes Louisiana LNG equity stake and LNG purchase obligations." }
       ]
@@ -93,6 +95,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Sempra posted about $906 million of first-quarter 2025 net income and still carries a regulated utility earnings base that supports capital deployment into infrastructure projects.",
       marketView: "The market views SRE primarily through the utility lens and discounts its infrastructure projects for complexity, timing, and political risk.",
       dislocation: "If LNG scarcity remains structural, the market may be over-discounting the strategic value of Port Arthur and other infrastructure relative to the stability of the regulated base business.",
+      socialSentiment: "Social sentiment looks muted and utility-like. The little visible Reddit and X discussion is focused on regulated earnings and project skepticism, not on strategic LNG optionality.",
       links: [
         { label: "Sempra Q1 2025 10-Q", url: "https://www.sec.gov/Archives/edgar/data/92108/000103220825000027/sre-20250331.htm", note: "Project-level view on Sempra Infrastructure and Port Arthur LNG." }
       ]
@@ -121,6 +124,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Baker Hughes generated roughly $27.8 billion of 2025 revenue and around $4.6 billion of adjusted EBITDA, with a large installed base plus LNG and gas equipment exposure through IET.",
       marketView: "The market still tends to treat Baker Hughes as a diversified oilfield service and industrial technology company rather than a strategic LNG bottleneck enabler.",
       dislocation: "That makes the stock underappreciated if the response to a Hormuz and Qatar shock is a multi-year wave of LNG, gas handling, and related equipment orders rather than a simple short-lived oil spike.",
+      socialSentiment: "Online sentiment is mildly positive but diffuse. Most chatter frames BKR as broad energy equipment rather than a targeted LNG capex winner, so the social narrative remains too generic for the thesis.",
       links: [
         { label: "Baker Hughes Q1 2025 10-Q", url: "https://www.sec.gov/Archives/edgar/data/1701605/000170160525000075/bkr-20250331.htm", note: "Management commentary on LNG and gas infrastructure resilience." }
       ]
@@ -149,6 +153,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Excelerate delivered roughly $348 million of adjusted EBITDA in 2024, has multiyear contracted regas assets, and disclosed about $8.1 billion of remaining performance obligations tied to LNG-related agreements.",
       marketView: "The market sees EE as a niche FSRU and emerging-markets infrastructure operator with geopolitical and customer risk, not as a scarcity platform.",
       dislocation: "That misses the fact that floating import capacity becomes far more valuable when LNG supply is tight and countries need flexible regas quickly. The stock can rerate on strategic relevance before the earnings base fully catches up.",
+      socialSentiment: "Reddit and indexed X coverage is sparse, which is part of the point. The small amount of visible chatter is constructive but mostly event-driven around energy security; there is little evidence of crowded retail ownership.",
       links: [
         { label: "Excelerate 2024 Annual Report", url: "https://www.sec.gov/Archives/edgar/data/1888447/000095017025055458/ee_inc._2025_ars.pdf", note: "Shows Petrobangla SPA, QatarEnergy supply deal, and remaining performance obligations." }
       ]
@@ -177,6 +182,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Kodiak entered 2026 with fleet utilization near the high-90s and a business model tied to recurring compression revenue rather than spot commodity prices.",
       marketView: "The market usually treats KGS as a plain compression roll-up tied to U.S. gas production growth.",
       dislocation: "That view misses how compression becomes a bottleneck asset when more domestic gas has to be moved into LNG corridors, power markets, and stressed infrastructure systems. The earnings setup can look more strategic than cyclical.",
+      socialSentiment: "Almost no broad retail conversation. The few visible mentions are positive but highly niche, which supports the idea that KGS remains underfollowed despite a strong operating setup.",
       links: [
         { label: "Kodiak Q4 2025 Earnings Release", url: "https://www.sec.gov/Archives/edgar/data/1767042/000176704226000009/kgsq42025earningsrelease.htm", note: "Shows high utilization and LNG-linked demand commentary." }
       ]
@@ -205,6 +211,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Archrock finished 2025 with strong contract compression utilization and a more defensive recurring cash flow mix than smaller peers.",
       marketView: "The market sees AROC as the steadier, lower-beta compression comp.",
       dislocation: "That is true, but it still underprices the possibility that compression availability itself gets a scarcity multiple as LNG-linked gas transport remains tight beyond the immediate conflict window.",
+      socialSentiment: "Online sentiment is quiet and income-oriented. The stock is discussed more as a steady small-cap energy name than as a strategic gas bottleneck asset.",
       links: [
         { label: "Archrock 2025 10-K", url: "https://www.sec.gov/Archives/edgar/data/1389050/000138905026000009/aroc-20251231x10k.htm", note: "Ties compression growth to LNG exports, power, and gas demand." }
       ]
@@ -233,6 +240,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Chart’s Heat Transfer Systems backlog reached roughly $2.37 billion in Q3 2025 after a sharp increase in LNG-related orders, including Port Arthur LNG Phase 2 work.",
       marketView: "The market understands GTLS as a cryogenic and industrial gas equipment name, but often still treats LNG orders as cyclical project noise.",
       dislocation: "If the replacement-capacity response to Middle East disruption lasts for years, backlog quality and visibility should command a better multiple than a generic capital-goods frame implies.",
+      socialSentiment: "Reddit and X chatter is constructive but technical. Posters focus on backlog and hydrogen/LNG equipment, not on a geopolitical scarcity angle, which keeps the sentiment helpful but still not crowded.",
       links: [
         { label: "Chart Industries Q3 2025 10-Q", url: "https://www.sec.gov/Archives/edgar/data/892553/000089255325000142/gtls-20250930.htm", note: "Shows LNG-driven order and backlog expansion including Port Arthur LNG Phase 2." }
       ]
@@ -261,6 +269,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Kinetik remains a fee-oriented gas gathering, processing, and transport business with rising commercial exposure to Gulf Coast LNG-linked flows.",
       marketView: "The market mostly values KNTK as another Permian and Gulf Coast midstream platform.",
       dislocation: "That can miss the corridor value: if getting gas from basin to water becomes more strategic, transport franchises tied into LNG routes deserve more than a plain midstream cash-yield treatment.",
+      socialSentiment: "Very limited retail attention. What little appears online is mostly about yield and Permian volumes, not LNG route scarcity, which is exactly why the thematic gap remains open.",
       links: [
         { label: "Kinetik Q3 2025 Earnings Release", url: "https://www.sec.gov/Archives/edgar/data/1692787/000169278725000064/kntkex991pressreleaseq32025.htm", note: "Includes Port Arthur LNG-linked commercial update." }
       ]
@@ -289,6 +298,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "CF earned about $1.22 billion of net income and approximately $2.33 billion of EBITDA in 2024, with a strong nitrogen franchise and material cash generation.",
       marketView: "The market tends to view CF as a nitrogen cyclical tied to corn economics and U.S. gas costs.",
       dislocation: "IEA’s Hormuz framework suggests a geopolitical fertilizer squeeze that is not fully in that cyclical framing. If ammonia and urea trade stay impaired, CF can get a margin uplift that the market may currently treat as too transitory.",
+      socialSentiment: "Reddit and indexed X sentiment is moderately bullish, but mostly from fertilizer-cycle and valuation angles. The IEA Hormuz trade-flow angle does not seem heavily reflected in social chatter yet.",
       links: [
         { label: "IEA Middle East energy markets", url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets", note: "States over 30% of global urea trade and about 20% of ammonia and phosphate trade move through Hormuz." },
         { label: "CF Industries 2023 10-K", url: "https://www.sec.gov/Archives/edgar/data/1324404/000132440424000008/cf-20231231.htm", note: "Discusses fertilizer pricing sensitivity to geopolitical and energy security disruptions." }
@@ -318,6 +328,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Nutrien’s earnings base is diversified across potash, nitrogen, phosphate, and retail, giving it a stronger balance between resilience and commodity sensitivity than narrower fertilizer peers.",
       marketView: "The market sees Nutrien mostly as the lower-beta fertilizer basket rather than a geopolitical supply squeeze beneficiary.",
       dislocation: "That means the shares may not fully reflect the option value from sustained disruption in Gulf fertilizer trade even though the company is one of the cleaner ways to own that theme with less single-product risk.",
+      socialSentiment: "Retail sentiment is steady but not excited. Discussion clusters around valuation, potash, and buybacks more than on a Hormuz-related fertilizer bottleneck.",
       links: [
         { label: "IEA Middle East energy markets", url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets", note: "Highlights Hormuz exposure for urea, ammonia, and phosphate trade." },
         { label: "Nutrien 2025 Annual Report", url: "https://www.sec.gov/Archives/edgar/data/1725964/000119312526081339/d25691dex9911.pdf", note: "Recent base business context for nitrogen, phosphate, and potash." }
@@ -347,6 +358,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Mosaic’s earnings remain more cyclical and phosphate-sensitive than Nutrien’s, with cash flow heavily shaped by fertilizer price realization and operating discipline.",
       marketView: "The market frames MOS as a classic ag input cyclical with weaker quality than CF or NTR.",
       dislocation: "If the market starts to price Hormuz-related phosphate stress more seriously, MOS can outperform because its operating leverage to phosphate pricing is higher than its current plain-cyclical label suggests.",
+      socialSentiment: "The limited visible chatter is mixed-to-positive and mostly cyclical. Social discussion tends to follow fertilizer tape moves rather than a structural chokepoint thesis.",
       links: [
         { label: "IEA Middle East energy markets", url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets", note: "States about 20% of phosphate trade moves through Hormuz." },
         { label: "Mosaic Q1 2025 10-Q", url: "https://www.sec.gov/Archives/edgar/data/0001285785/000161803425000005/mos-20250331.htm", note: "Business context for phosphate and potash segments." }
@@ -376,6 +388,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Alcoa is the higher-quality liquid aluminum exposure with global alumina and aluminum operations, but cash flow still swings materially with realized prices and costs.",
       marketView: "The market mostly treats AA as a broad industrial metals cyclical rather than a geopolitical export-disruption trade.",
       dislocation: "If Gulf aluminum exports stay impaired, regional premiums and tightness can support earnings more than the current generic-cyclical view implies, even if the market is slow to recognize the Hormuz link.",
+      socialSentiment: "Reddit and indexed X skew tactically bullish whenever aluminum prices firm, but the conversation is cyclical and China-focused rather than Hormuz-focused. That means the geopolitical supply squeeze angle is still not consensus.",
       links: [
         { label: "IEA Middle East energy markets", url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets", note: "States Gulf region produces around 8% of global aluminum supply shipped via Hormuz." },
         { label: "Alcoa 2024 Annual Report", url: "https://www.sec.gov/Archives/edgar/data/1675149/000095017025042061/2024_ars_filing.pdf", note: "Highlights aluminum and alumina market sensitivity." }
@@ -405,6 +418,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Century is much smaller and more operationally levered than Alcoa, so changes in aluminum pricing and premiums hit equity value harder.",
       marketView: "The market views CENX as a volatile, lower-quality aluminum beta name.",
       dislocation: "That is exactly why it can move sharply if Gulf export disruptions turn aluminum into a tighter ex-Gulf market. The opportunity is larger, but so is the probability of self-inflicted disappointment.",
+      socialSentiment: "Online chatter is thin but speculative and momentum-driven. When it appears, it is much more about tape action than fundamentals, which fits the stock’s high-torque but fragile profile.",
       links: [
         { label: "IEA Middle East energy markets", url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets", note: "Provides the Hormuz-linked aluminum trade exposure." },
         { label: "Century Aluminum Q1 2025 Earnings Release", url: "https://www.sec.gov/Archives/edgar/data/0000949157/000094915725000033/a20250331q1ex991earningsre.htm", note: "Shows sensitivity to energy prices and aluminum market conditions." }
@@ -434,6 +448,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Golar’s economics are now concentrated in long-duration FLNG contracts rather than legacy shipping volatility, creating a smaller but much more strategic earnings base.",
       marketView: "The market still treats GLNG as a specialized project story with execution risk, not as a scarcity asset owner.",
       dislocation: "That leaves room for a significant rerating if floating liquefaction becomes more highly valued as a strategic substitute for impaired onshore Gulf supply.",
+      socialSentiment: "Among the smaller names, GLNG has some of the strongest bullish online sentiment. Reddit and indexed X comments focus on FLNG scarcity and strategic optionality, but attention is still niche enough that it does not look fully crowded.",
       links: [
         { label: "Golar LNG 2024 Annual Report", url: "https://www.sec.gov/Archives/edgar/data/1207179/000120717925000005/glng-20241231.htm", note: "Outlines FLNG portfolio and long-duration project economics." },
         { label: "Golar Q1 2025 Release", url: "https://www.sec.gov/Archives/edgar/data/1207179/000117184325003455/exh_991.htm", note: "Provides project-level FLNG update and backlog context." }
@@ -463,6 +478,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "NGS is a small-cap compression and gas services company with much more limited scale than AROC or KGS, so incremental contract wins can disproportionately move earnings.",
       marketView: "The market barely treats NGS as a thematic name at all; it is more of a forgotten small-cap energy services stock.",
       dislocation: "That lack of ownership is the dislocation. If investors broaden from exporters into gas bottleneck infrastructure, NGS can rerate simply by being discovered, though the risk of disappointment is also much higher.",
+      socialSentiment: "Social signal is almost nonexistent. That is useful information in itself: there is little retail sponsorship, so any move would likely come from discovery rather than crowded positioning.",
       links: [
         { label: "NGS Q1 2025 Earnings Release", url: "https://www.sec.gov/Archives/edgar/data/1084991/000108499125000067/ngsq12025earningsreleaseex.htm", note: "Shows contract-backed growth and service demand." },
         { label: "NGS 2024 10-K", url: "https://www.sec.gov/Archives/edgar/data/1084991/000108499125000024/ngs-20241231.htm", note: "Base business and balance-sheet context." }
@@ -492,6 +508,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "KEPCO is heavily exposed to imported fuel costs, including LNG, but the earnings path is also shaped by tariff policy and government decisions rather than just commodity prices.",
       marketView: "The market knows the company is an imported-fuel utility and often discounts it accordingly.",
       dislocation: "The issue is less undervaluation of the problem and more underappreciation of how violently Asian LNG prices can move if Hormuz remains impaired. It is a usable hedge, but not a clean alpha short.",
+      socialSentiment: "English-language Reddit and X chatter is sparse. Where it exists, the framing is usually around policy and tariffs rather than LNG supply shock, so the name remains more of a specialist hedge than a crowded social short.",
       links: [
         { label: "IEA Middle East energy markets", url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets", note: "States almost 90% of Hormuz LNG exports go to Asia." },
         { label: "KEPCO 20-F", url: "https://www.sec.gov/Archives/edgar/data/887225/000119312525100431/d907968d20f.htm", note: "Shows substantial LNG purchases for power generation and fuel-cost exposure." }
@@ -521,6 +538,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Tokyo Gas has meaningful LNG exposure but also an increasingly diversified sourcing portfolio, including long-term U.S.-linked supply.",
       marketView: "The market generally sees Tokyo Gas as a prudent LNG portfolio manager rather than a one-factor Hormuz casualty.",
       dislocation: "That is why this sits in avoid/watchlist. The market is not obviously wrong enough to justify a conviction short given diversification and contract management.",
+      socialSentiment: "There is very little English-language social signal. The absence of a strong bearish narrative is consistent with the stock being a messy rather than clean short.",
       links: [
         { label: "IEA Middle East energy markets", url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets", note: "Shows Asia's large dependence on Hormuz LNG." },
         { label: "Venture Global / Tokyo Gas SPA", url: "https://investors.ventureglobal.com/news/news-details/2025/Venture-Global-and-Tokyo-Gas-Announce-20-Year-LNG-Sales-and-Purchase-Agreement/default.aspx", note: "Shows Tokyo Gas actively diversifying LNG procurement toward the U.S." }
@@ -550,6 +568,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Kansai Electric has material LNG fuel exposure but also a policy-heavy and pass-through-influenced earnings model.",
       marketView: "The market does not price it like a simple imported-LNG short because that would ignore regulation and fuel management.",
       dislocation: "There may be a headline sensitivity trade, but not a strong enough expectation gap for a high-conviction short versus cleaner travel and petchem expressions.",
+      socialSentiment: "Indexed English-language social chatter is minimal, which reinforces the point that this is more of a specialist monitor than a live retail short battleground.",
       links: [
         { label: "IEA Middle East energy markets", url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets", note: "Most Hormuz LNG goes to Asia." },
         { label: "Kansai Electric ESG Report 2025", url: "https://www.kepco.co.jp/english/corporate/list/esg/pdf/esg2025_e.pdf", note: "Shows LNG as a meaningful fuel input and stable procurement efforts." }
@@ -579,6 +598,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "American remains the weaker-balance-sheet U.S. legacy airline and disclosed that it had no fuel hedges outstanding in Q1 2025, leaving margins exposed to fuel spikes.",
       marketView: "The market already knows AAL is lower quality than Delta and often weaker than United, but it still tends to trade airlines as a group on macro headlines.",
       dislocation: "The dislocation is relative, not absolute: if fuel stays high, AAL should underperform peers more than a generic airline basket implies because it lacks a stronger balance sheet and is directly unhedged.",
+      socialSentiment: "Reddit and indexed X are mixed to bearish. Bulls still lean on cheapness and mean reversion, but the visible chatter turns quickly negative when fuel or demand concerns rise, which fits the stock as a tactical short rather than a hidden dislocation.",
       links: [
         { label: "American Airlines Q1 2025 10-Q", url: "https://www.sec.gov/Archives/edgar/data/4515/000000620125000023/aal-20250331.htm", note: "States the company had no fuel hedges outstanding." }
       ]
@@ -607,6 +627,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "United is larger and more liquid than AAL, with a broader network and better perceived operating quality, but still substantial sensitivity to fuel and travel sentiment.",
       marketView: "The market uses UAL as a macro airline proxy rather than a uniquely fragile one.",
       dislocation: "That makes it a good liquid hedge, but less of an idiosyncratic mispricing than AAL. The relative short case is weaker even if the absolute downside still exists.",
+      socialSentiment: "Visible online chatter is more balanced than for AAL, with both bulls and bears using it as the airline macro proxy. That supports keeping it as a liquid hedge, not as the best single-name short.",
       links: [
         { label: "IEA March 2026 Oil Market Report", url: "https://www.iea.org/reports/oil-market-report-march-2026", note: "Highlights the scale of the supply disruption and fuel market stress." },
         { label: "Reuters March 6, 2026 airline fuel hedge analysis", url: "https://wsau.com/2026/03/06/analysis-us-airlines-no-longer-hedge-fuel-costs-that-could-hurt-margins-if-iran-conflict-lingers/", note: "Summarizes the industry's broad retreat from fuel hedging." }
@@ -636,6 +657,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "NCLH remains the weaker-balance-sheet major cruise operator, with earnings and free cash flow more exposed to occupancy, onboard spending, and fuel costs than stronger peers.",
       marketView: "The market treats NCLH as a travel recovery and deleveraging story.",
       dislocation: "That recovery framing can crack quickly under an energy shock because both costs and discretionary demand can turn against the company at once. It is a better cruise short than the better-capitalized operators.",
+      socialSentiment: "Reddit and indexed X look mixed with a noticeable dip-buying reflex, but sentiment is fragile and can flip bearish quickly on macro travel fears. That is consistent with a decent tactical short.",
       links: [
         { label: "NCLH Q2 2025 10-Q", url: "https://www.sec.gov/Archives/edgar/data/1513761/000155837025010053/nclh-20250630x10q.htm", note: "Shows fuel derivative activity and broader operating context." },
         { label: "Royal Caribbean 2025 10-K", url: "https://www.sec.gov/Archives/edgar/data/884887/000088488726000007/rcl-20251231.htm", note: "Useful comp showing cruise operators commonly hedge fuel, which slightly muddies the pure thesis." }
@@ -665,6 +687,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "LYB is highly exposed to petrochemical chain margins, where feedstocks, energy, and end-market demand all interact to drive EBITDA.",
       marketView: "The market generally sees LYB as a cheap cyclical with mean reversion potential.",
       dislocation: "That cheap-cyclical framing underestimates the specific risk from Hormuz-related LPG and feedstock disruption, which can squeeze margins even before demand recovers.",
+      socialSentiment: "Retail discussion is relatively light and valuation-focused. The stock is not a social battleground, which means a petchem margin squeeze would still be an underowned downside narrative.",
       links: [
         { label: "IEA Middle East Energy Markets", url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets", note: "Notes petrochemical feedstock shortages and production cuts." }
       ]
@@ -693,6 +716,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "Carnival has improved operating momentum, but the model is still highly sensitive to fuel, occupancy, pricing, and consumer sentiment.",
       marketView: "The market sees CCL as a reopening and deleveraging consumer discretionary recovery.",
       dislocation: "That view leaves the stock vulnerable if an energy shock weakens the consumer while also lifting operating costs. It is not as clean as NCLH, but it remains a valid macro hedge.",
+      socialSentiment: "CCL has the most active retail following among the travel shorts and sentiment is often bullish on recovery. That cuts both ways: the short is less underfollowed, but a negative macro turn can unwind a larger bullish base.",
       links: [
         { label: "AP March 29 Iran war economy piece", url: "https://apnews.com/article/iran-us-israel-war-global-economy-oil-1bcb0c616c5ca2e1b6a903c2cd64a4e4", note: "Notes effects on energy-sensitive sectors and transport." }
       ]
@@ -721,6 +745,7 @@ window.IRAN_DASHBOARD_DATA = {
       financials: "NFE moved from an LNG growth and infrastructure story into a creditor-led restructuring after impairments, asset sales, missed debt payments, and a deeply overlevered balance sheet.",
       marketView: "The market now treats NFE common as a distressed stub with optionality rather than a going-concern growth equity.",
       dislocation: "There is no clean thematic dislocation left for common equity. Any upside is recovery optionality, not a pure LNG thesis, which is why it remains an avoid.",
+      socialSentiment: "Social sentiment is polarized in the classic distressed-equity way: a few high-upside recovery bulls versus a much broader skepticism about dilution and restructuring. That is noise, not a clean signal.",
       links: [
         { label: "NFE March 17, 2026 8-K", url: "https://www.sec.gov/Archives/edgar/data/1749723/000174972326000007/nfe-20260317.htm", note: "Formal restructuring support agreement; common survives only as a diluted stub." }
       ]

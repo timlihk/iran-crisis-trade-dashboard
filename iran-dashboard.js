@@ -22,6 +22,7 @@
     boardNote: document.getElementById("board-note"),
     segments: document.getElementById("segments"),
     detailTop: document.getElementById("detail-top"),
+    chartHost: document.getElementById("chart-host"),
     sourceList: document.getElementById("source-list"),
     searchInput: document.getElementById("search-input"),
     sortSelect: document.getElementById("sort-select"),
@@ -309,6 +310,7 @@
   function renderDetail(row) {
     if (!row) {
       elements.detailTop.innerHTML = '<div class="empty">No row selected.</div>';
+      elements.chartHost.innerHTML = "";
       elements.sourceList.innerHTML = "";
       return;
     }
@@ -321,6 +323,8 @@
           <p>${escapeHtml(row.name)} / ${escapeHtml(row.segment)}</p>
         </div>
         <div class="detail-links">
+          <a class="detail-link" href="${escapeHtml(getYahooUrl(row))}" target="_blank" rel="noreferrer">Yahoo</a>
+          <a class="detail-link" href="${escapeHtml(getTradingViewUrl(row))}" target="_blank" rel="noreferrer">TradingView</a>
           <span class="${verdictClass(row.verdict)} verdict">${escapeHtml(row.verdict)}</span>
         </div>
       </div>
@@ -362,12 +366,14 @@
         ${row.financials ? `<p class="note"><strong>Financials:</strong> ${escapeHtml(row.financials)}</p>` : ""}
         ${row.marketView ? `<p class="note"><strong>Current market view:</strong> ${escapeHtml(row.marketView)}</p>` : ""}
         ${row.dislocation ? `<p class="note"><strong>Expectation dislocation:</strong> ${escapeHtml(row.dislocation)}</p>` : ""}
+        ${row.socialSentiment ? `<p class="note"><strong>Reddit / X sentiment:</strong> ${escapeHtml(row.socialSentiment)}</p>` : ""}
         <p class="note"><strong>Why now:</strong> ${escapeHtml(row.whyNow)}</p>
         <p class="note"><strong>Why still underfollowed:</strong> ${escapeHtml(row.whyUnderfollowed)}</p>
         <p class="note"><strong>Invalidation:</strong> ${escapeHtml(row.invalidation)}</p>
       </div>
     `;
 
+    renderChart(row);
     elements.sourceList.innerHTML = (row.links || []).map((link) => `
       <li>
         <a href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">
@@ -407,6 +413,47 @@
   function renderMetric(value) {
     const className = value >= 75 ? "metric-strong" : value >= 50 ? "metric-medium" : "metric-weak";
     return `<span class="metric-pill ${className}">${escapeHtml(formatScore(value))}</span>`;
+  }
+
+  function renderChart(row) {
+    const tradingViewSymbol = getTradingViewSymbol(row);
+
+    if (!tradingViewSymbol || !window.TradingView || typeof window.TradingView.widget !== "function") {
+      elements.chartHost.innerHTML = `
+        <div class="fallback-chart">
+          <div class="empty">Chart widget unavailable for ${escapeHtml(row.ticker)}.</div>
+          <div class="fallback-caption">Use the Yahoo and TradingView buttons above for the full external page.</div>
+        </div>
+      `;
+      return;
+    }
+
+    elements.chartHost.innerHTML = '<div id="tv-chart-host" style="width:100%;height:100%;"></div>';
+
+    try {
+      new window.TradingView.widget({
+        autosize: true,
+        symbol: tradingViewSymbol,
+        interval: "D",
+        timezone: "Asia/Hong_Kong",
+        theme: "light",
+        style: "1",
+        locale: "en",
+        enable_publishing: false,
+        allow_symbol_change: false,
+        hide_top_toolbar: false,
+        hide_legend: false,
+        save_image: false,
+        container_id: "tv-chart-host"
+      });
+    } catch (error) {
+      elements.chartHost.innerHTML = `
+        <div class="fallback-chart">
+          <div class="empty">Could not render TradingView for ${escapeHtml(row.ticker)}.</div>
+          <div class="fallback-caption">Use the Yahoo and TradingView buttons above for the full external page.</div>
+        </div>
+      `;
+    }
   }
 
   function average(values) {
@@ -492,5 +539,54 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
+  }
+
+  function getYahooUrl(row) {
+    const symbol = row.yahooSymbol || row.ticker;
+    return `https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}`;
+  }
+
+  function getTradingViewUrl(row) {
+    const tradingViewSymbol = getTradingViewSymbol(row);
+    if (tradingViewSymbol) {
+      return `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(tradingViewSymbol)}`;
+    }
+    return `https://www.tradingview.com/symbols/${encodeURIComponent(row.ticker)}/`;
+  }
+
+  function getTradingViewSymbol(row) {
+    if (row.tradingViewSymbol) {
+      return row.tradingViewSymbol;
+    }
+
+    const exchangeMap = {
+      LNG: "NYSE:LNG",
+      WMB: "NYSE:WMB",
+      SRE: "NYSE:SRE",
+      BKR: "NASDAQ:BKR",
+      EE: "NYSE:EE",
+      KGS: "NYSE:KGS",
+      AROC: "NYSE:AROC",
+      GTLS: "NYSE:GTLS",
+      KNTK: "NYSE:KNTK",
+      CF: "NYSE:CF",
+      NTR: "NYSE:NTR",
+      MOS: "NYSE:MOS",
+      AA: "NYSE:AA",
+      CENX: "NASDAQ:CENX",
+      GLNG: "NASDAQ:GLNG",
+      NGS: "NYSE:NGS",
+      KEP: "NYSE:KEP",
+      TKGSY: "OTC:TKGSY",
+      KAEPY: "OTC:KAEPY",
+      AAL: "NASDAQ:AAL",
+      UAL: "NASDAQ:UAL",
+      NCLH: "NYSE:NCLH",
+      LYB: "NYSE:LYB",
+      CCL: "NYSE:CCL",
+      NFE: "NASDAQ:NFE"
+    };
+
+    return exchangeMap[row.ticker] || null;
   }
 })();
