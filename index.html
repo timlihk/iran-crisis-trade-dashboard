@@ -330,6 +330,11 @@ tbody tr.is-selected{background:rgba(20,92,77,.08)}
   font-size:12px;
 }
 .mono{font-family:var(--mono)}
+.sparkline{
+  width:118px;
+  height:34px;
+  display:block;
+}
 .verdict{
   display:inline-flex;
   padding:6px 10px;
@@ -373,6 +378,35 @@ tbody tr.is-selected{background:rgba(20,92,77,.08)}
 .metric-strong{color:var(--accent);background:var(--accent-soft)}
 .metric-medium{color:#8d5d16;background:var(--torque-soft)}
 .metric-weak{color:var(--danger);background:var(--danger-soft)}
+.strength{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.strength-bar{
+  width:58px;
+  height:8px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#ede2cc;
+}
+.strength-fill{
+  height:100%;
+  background:linear-gradient(90deg, var(--torque), var(--accent));
+}
+.trend{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:44px;
+  padding:6px 8px;
+  border-radius:999px;
+  font-family:var(--mono);
+  font-size:11px;
+}
+.trend-up{background:var(--accent-soft);color:var(--accent)}
+.trend-down{background:var(--danger-soft);color:var(--danger)}
+.trend-flat{background:#f1eadc;color:var(--muted)}
 .detail-panel{
   position:sticky;
   top:22px;
@@ -563,6 +597,8 @@ tbody tr.is-selected{background:rgba(20,92,77,.08)}
             <option value="discovery">Sort: Discovery</option>
             <option value="peaceDurability">Sort: Early-peace durability</option>
             <option value="warBeta">Sort: War beta</option>
+            <option value="relativeStrength">Sort: Relative strength</option>
+            <option value="oneYearReturn">Sort: 1Y return</option>
             <option value="currentPrice">Sort: Price</option>
             <option value="ticker">Sort: Ticker</option>
           </select>

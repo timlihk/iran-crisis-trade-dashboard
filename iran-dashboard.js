@@ -155,8 +155,12 @@
         return row.peaceDurability;
       case "warBeta":
         return row.warBeta;
+      case "relativeStrength":
+        return row.relativeStrength;
+      case "oneYearReturn":
+        return row.marketMetrics?.oneYearReturn;
       case "currentPrice":
-        return row.currentPrice;
+        return row.marketMetrics?.currentPrice ?? row.currentPrice;
       case "ticker":
         return row.ticker;
       case "totalScore":
@@ -182,6 +186,8 @@
     const avgTorque = average(filteredRows.map((row) => row.torque));
     const avgDurability = average(filteredRows.map((row) => row.peaceDurability));
     const hiddenCount = filteredRows.filter((row) => row.discovery >= 70 && row.verdict.includes("LONG")).length;
+    const liveCount = filteredRows.filter((row) => row.marketDataStatus === "ok").length;
+    const avgOneYear = average(filteredRows.map((row) => row.marketMetrics?.oneYearReturn));
 
     elements.generatedStamp.textContent = `Snapshot ${formatDateTime(new Date(data.generatedAt))}`;
     elements.coverageStamp.textContent = `${filteredRows.length} of ${data.rows.length} ideas visible`;
@@ -206,6 +212,11 @@
         label: "Avg Early-Peace Durability",
         value: avgDurability == null ? "n/a" : `${avgDurability.toFixed(0)}/100`,
         note: `${shorts.length} hedge names remain available if the board needs protection.`
+      },
+      {
+        label: "Avg 1Y Return",
+        value: avgOneYear == null ? "n/a" : formatPercent(avgOneYear),
+        note: `${liveCount} names have live price history powering RS and SMA metrics.`
       }
     ];
 
@@ -254,16 +265,18 @@
               <thead>
                 <tr>
                   <th class="sticky-col">Ticker / Company</th>
-                  <th>Verdict</th>
                   <th>Price</th>
+                  <th>Verdict</th>
+                  <th>Chart 1Y</th>
+                  <th>1M</th>
+                  <th>YTD</th>
+                  <th>1Y</th>
+                  <th>High Gap</th>
+                  <th>RS</th>
+                  <th>20D</th>
+                  <th>50D</th>
+                  <th>200D</th>
                   <th>Total</th>
-                  <th>Torque</th>
-                  <th>Defensive</th>
-                  <th>Discovery</th>
-                  <th>Structural</th>
-                  <th>Peace Durability</th>
-                  <th>War Beta</th>
-                  <th>Fragility</th>
                   <th>Role</th>
                 </tr>
               </thead>
@@ -292,16 +305,18 @@
             </span>
           </button>
         </td>
+        <td class="mono">${escapeHtml(formatPrice(row.marketMetrics?.currentPrice ?? row.currentPrice))}</td>
         <td>${renderVerdict(row.verdict)}</td>
-        <td class="mono">${escapeHtml(formatPrice(row.currentPrice))}</td>
+        <td>${renderSparkline(row.marketMetrics?.sparkline)}</td>
+        <td>${renderMetricPill(row.marketMetrics?.oneMonthReturn)}</td>
+        <td>${renderMetricPill(row.marketMetrics?.ytdReturn)}</td>
+        <td>${renderMetricPill(row.marketMetrics?.oneYearReturn)}</td>
+        <td>${renderMetricPill(row.marketMetrics?.distanceFromHigh, { invert: true })}</td>
+        <td>${renderStrength(row.relativeStrength)}</td>
+        <td>${renderTrend(row.marketMetrics?.above20Sma)}</td>
+        <td>${renderTrend(row.marketMetrics?.above50Sma)}</td>
+        <td>${renderTrend(row.marketMetrics?.above200Sma)}</td>
         <td>${renderScore(row.totalScore)}</td>
-        <td>${renderMetric(row.torque)}</td>
-        <td>${renderMetric(row.defensive)}</td>
-        <td>${renderMetric(row.discovery)}</td>
-        <td>${renderMetric(row.structural)}</td>
-        <td>${renderMetric(row.peaceDurability)}</td>
-        <td>${renderMetric(row.warBeta)}</td>
-        <td>${renderMetric(100 - row.fragility)}</td>
         <td>${escapeHtml(row.role)}</td>
       </tr>
     `;
@@ -332,13 +347,23 @@
       <div class="detail-grid">
         <article class="detail-stat">
           <span class="label">Price</span>
-          <span class="value">${escapeHtml(formatPrice(row.currentPrice))}</span>
+          <span class="value">${escapeHtml(formatPrice(row.marketMetrics?.currentPrice ?? row.currentPrice))}</span>
           <span class="small">Snapshot ${escapeHtml(data.priceDate)}</span>
         </article>
         <article class="detail-stat">
           <span class="label">Portfolio Role</span>
           <span class="value">${escapeHtml(scoreWord(row.totalScore))}</span>
           <span class="small">${escapeHtml(row.role)}</span>
+        </article>
+        <article class="detail-stat">
+          <span class="label">Momentum</span>
+          <span class="value">${escapeHtml(formatPercent(row.marketMetrics?.oneYearReturn))}</span>
+          <span class="small">1M ${escapeHtml(formatPercent(row.marketMetrics?.oneMonthReturn))} / YTD ${escapeHtml(formatPercent(row.marketMetrics?.ytdReturn))}</span>
+        </article>
+        <article class="detail-stat">
+          <span class="label">Trend Setup</span>
+          <span class="value">${escapeHtml(renderTrendLabel(row))}</span>
+          <span class="small">RS ${row.relativeStrength == null ? "n/a" : `${row.relativeStrength}/100`} / High gap ${escapeHtml(formatPercent(row.marketMetrics?.distanceFromHigh))}</span>
         </article>
         <article class="detail-stat">
           <span class="label">Early-Peace Durability</span>
@@ -414,6 +439,70 @@
   function renderMetric(value) {
     const className = value >= 75 ? "metric-strong" : value >= 50 ? "metric-medium" : "metric-weak";
     return `<span class="metric-pill ${className}">${escapeHtml(formatScore(value))}</span>`;
+  }
+
+  function renderSparkline(values) {
+    if (!values || !values.length) {
+      return '<span class="subcopy">n/a</span>';
+    }
+
+    const width = 118;
+    const height = 34;
+    const min = Math.min.apply(null, values);
+    const max = Math.max.apply(null, values);
+    const range = max - min || 1;
+    const points = values
+      .map((value, index) => {
+        const x = (index / Math.max(values.length - 1, 1)) * width;
+        const y = height - ((value - min) / range) * (height - 4) - 2;
+        return `${x.toFixed(2)},${y.toFixed(2)}`;
+      })
+      .join(" ");
+    const stroke = values[values.length - 1] >= values[0] ? "#145c4d" : "#b6453e";
+
+    return `
+      <svg class="sparkline" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true">
+        <polyline fill="none" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${points}"></polyline>
+      </svg>
+    `;
+  }
+
+  function renderMetricPill(value, options) {
+    if (value == null) {
+      return '<span class="metric-pill metric-medium">n/a</span>';
+    }
+
+    const invert = Boolean(options && options.invert);
+    const positive = invert ? value >= -8 : value >= 0;
+    const negative = invert ? value < -20 : value < 0;
+    const className = positive ? "metric-strong" : negative ? "metric-weak" : "metric-medium";
+    return `<span class="metric-pill ${className}">${escapeHtml(formatPercent(value))}</span>`;
+  }
+
+  function renderStrength(value) {
+    if (value == null) {
+      return '<span class="subcopy">n/a</span>';
+    }
+
+    return `
+      <div class="strength">
+        <span class="mono">${escapeHtml(String(value))}</span>
+        <span class="strength-bar"><span class="strength-fill" style="width:${Math.max(0, Math.min(100, value))}%"></span></span>
+      </div>
+    `;
+  }
+
+  function renderTrend(flag) {
+    if (flag == null) {
+      return '<span class="trend trend-flat">n/a</span>';
+    }
+    return flag ? '<span class="trend trend-up">UP</span>' : '<span class="trend trend-down">DN</span>';
+  }
+
+  function renderTrendLabel(row) {
+    const metrics = row.marketMetrics || {};
+    const label = (flag) => flag == null ? "n/a" : flag ? "UP" : "DN";
+    return `20D ${label(metrics.above20Sma)} / 50D ${label(metrics.above50Sma)} / 200D ${label(metrics.above200Sma)}`;
   }
 
   function renderChart(row) {
@@ -499,6 +588,15 @@
       return "n/a";
     }
     return new Intl.NumberFormat("en-US").format(value);
+  }
+
+  function formatPercent(value, digits) {
+    if (value == null || Number.isNaN(value)) {
+      return "n/a";
+    }
+    const precision = typeof digits === "number" ? digits : Math.abs(value) >= 100 ? 0 : 1;
+    const prefix = value > 0 ? "+" : "";
+    return `${prefix}${value.toFixed(precision)}%`;
   }
 
   function scoreWord(value) {
