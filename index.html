@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iran Crisis Trade Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3eee6;
+  --panel:#fbf8f1;
+  --panel-strong:#fffdfa;
+  --line:#d9cfbe;
+  --ink:#17140f;
+  --muted:#655b4d;
+  --accent:#145c4d;
+  --accent-soft:#ddf0ea;
+  --torque:#8e5f1a;
+  --torque-soft:#f8ebd5;
+  --danger:#b6453e;
+  --danger-soft:#f8ddda;
+  --shadow:0 18px 48px rgba(44,34,21,.12);
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --sans:"Space Grotesk","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  font-family:var(--sans);
+  background:
+    radial-gradient(circle at top left, rgba(20,92,77,.10), transparent 30%),
+    radial-gradient(circle at top right, rgba(142,95,26,.10), transparent 24%),
+    linear-gradient(180deg, #faf7f0 0%, var(--bg) 100%);
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(rgba(23,20,15,.08) 0.8px, transparent 0.8px);
+  background-size:26px 26px;
+  opacity:.3;
+  pointer-events:none;
+}
+a{color:inherit}
+.page{
+  position:relative;
+  z-index:1;
+  padding:28px;
+}
+.hero,.board,.detail-panel{
+  border:1px solid rgba(23,20,15,.08);
+  background:rgba(251,248,241,.92);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(14px);
+}
+.hero{
+  border-radius:28px;
+  padding:28px;
+  display:grid;
+  gap:22px;
+}
+.hero-top{
+  display:flex;
+  justify-content:space-between;
+  gap:24px;
+  align-items:flex-start;
+}
+.eyebrow{
+  margin:0 0 10px;
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.hero h1{
+  margin:0 0 12px;
+  font-size:clamp(34px,5vw,58px);
+  line-height:.94;
+}
+.hero-copy{
+  margin:0;
+  max-width:920px;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.6;
+}
+.hero-meta{
+  display:grid;
+  gap:10px;
+  justify-items:end;
+}
+.stamp{
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--panel-strong);
+  padding:8px 14px;
+  font-family:var(--mono);
+  font-size:12px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.card{
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:16px 18px;
+  background:var(--panel-strong);
+}
+.card-label{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.card-value{
+  display:block;
+  font-size:28px;
+  line-height:1;
+  margin-bottom:8px;
+}
+.card-note{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+}
+.segment-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.segment-link{
+  text-decoration:none;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:10px 14px;
+  background:var(--panel-strong);
+  color:var(--muted);
+  font-size:13px;
+}
+.segment-link:hover{color:var(--ink);border-color:var(--accent)}
+.layout{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:minmax(0,1.72fr) minmax(340px,.92fr);
+  gap:22px;
+  align-items:start;
+}
+.board{
+  border-radius:28px;
+  padding:22px;
+}
+.toolbar{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+.toolbar-group{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.field,.select,.toggle{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--panel-strong);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:14px;
+}
+.field{
+  min-width:280px;
+  padding:12px 14px;
+}
+.select{
+  padding:12px 38px 12px 14px;
+  appearance:none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% - 2px),
+    calc(100% - 12px) calc(50% - 2px);
+  background-size:6px 6px,6px 6px;
+  background-repeat:no-repeat;
+}
+.toggle{
+  padding:12px 14px;
+  cursor:pointer;
+}
+.toggle.active{
+  background:var(--ink);
+  color:#fff;
+  border-color:var(--ink);
+}
+.board-note{
+  color:var(--muted);
+  font-size:13px;
+}
+.segments{
+  display:grid;
+  gap:18px;
+}
+.segment-card{
+  border:1px solid var(--line);
+  background:var(--panel-strong);
+  border-radius:24px;
+  overflow:hidden;
+}
+.segment-header{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  align-items:flex-end;
+  padding:18px 18px 14px;
+  border-bottom:1px solid rgba(23,20,15,.08);
+}
+.segment-header h2{
+  margin:0 0 8px;
+  font-size:26px;
+}
+.segment-meta{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+}
+.segment-badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  font-size:12px;
+  color:var(--muted);
+}
+.table-wrap{overflow:auto}
+table{
+  width:100%;
+  min-width:1280px;
+  border-collapse:separate;
+  border-spacing:0;
+  font-size:13px;
+}
+thead th{
+  position:sticky;
+  top:0;
+  z-index:2;
+  padding:12px;
+  background:#f6f0e4;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+tbody td{
+  padding:12px;
+  border-bottom:1px solid rgba(23,20,15,.06);
+  vertical-align:middle;
+}
+tbody tr:hover{background:rgba(20,92,77,.04)}
+tbody tr.is-selected{background:rgba(20,92,77,.08)}
+.sticky-col{
+  position:sticky;
+  left:0;
+  z-index:1;
+  background:inherit;
+  box-shadow:1px 0 0 rgba(23,20,15,.05);
+}
+.idea-button{
+  width:100%;
+  border:none;
+  background:none;
+  padding:0;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  text-align:left;
+  cursor:pointer;
+  font:inherit;
+  color:inherit;
+}
+.ticker-dot{
+  flex:0 0 42px;
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(145deg, rgba(20,92,77,.14), rgba(142,95,26,.18));
+  font-family:var(--mono);
+  font-size:11px;
+  font-weight:500;
+}
+.identity{
+  display:grid;
+  gap:4px;
+}
+.ticker{
+  font-family:var(--mono);
+  font-size:12px;
+}
+.company{
+  font-size:14px;
+  line-height:1.25;
+}
+.subcopy{
+  color:var(--muted);
+  font-size:12px;
+}
+.mono{font-family:var(--mono)}
+.verdict{
+  display:inline-flex;
+  padding:6px 10px;
+  border-radius:999px;
+  font-family:var(--mono);
+  font-size:11px;
+}
+.verdict-core{background:var(--accent-soft);color:var(--accent)}
+.verdict-torque{background:var(--torque-soft);color:#8d5d16}
+.verdict-short{background:var(--danger-soft);color:var(--danger)}
+.verdict-avoid{background:#ece6da;color:var(--muted)}
+.score{
+  display:grid;
+  gap:6px;
+}
+.score-bar{
+  width:88px;
+  height:8px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#ede2cc;
+}
+.score-fill{
+  height:100%;
+  background:linear-gradient(90deg, var(--torque), var(--accent));
+}
+.score-label{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--muted);
+}
+.metric-pill{
+  display:inline-flex;
+  min-width:88px;
+  justify-content:center;
+  padding:6px 10px;
+  border-radius:999px;
+  font-family:var(--mono);
+  font-size:12px;
+}
+.metric-strong{color:var(--accent);background:var(--accent-soft)}
+.metric-medium{color:#8d5d16;background:var(--torque-soft)}
+.metric-weak{color:var(--danger);background:var(--danger-soft)}
+.detail-panel{
+  position:sticky;
+  top:22px;
+  border-radius:28px;
+  padding:22px;
+  display:grid;
+  gap:18px;
+}
+.detail-top{
+  display:grid;
+  gap:10px;
+}
+.detail-heading{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:flex-start;
+}
+.detail-heading h2{
+  margin:0;
+  font-size:32px;
+  line-height:1;
+}
+.detail-heading p{
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:14px;
+}
+.detail-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.detail-link{
+  text-decoration:none;
+  padding:9px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:var(--panel-strong);
+  color:var(--ink);
+  font-size:12px;
+}
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.detail-stat{
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--panel-strong);
+  padding:14px;
+}
+.detail-stat .label{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:10px;
+}
+.detail-stat .value{
+  display:block;
+  font-size:22px;
+  line-height:1;
+}
+.detail-stat .small{
+  display:block;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:12px;
+}
+.detail-copy{
+  display:grid;
+  gap:12px;
+}
+.note{
+  margin:0;
+  padding:14px 16px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:var(--panel-strong);
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
+}
+.note strong{color:var(--ink)}
+.sources{
+  display:grid;
+  gap:10px;
+}
+.source-list{
+  margin:0;
+  padding:0;
+  list-style:none;
+  display:grid;
+  gap:8px;
+}
+.source-list a{
+  display:block;
+  text-decoration:none;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--panel-strong);
+  padding:12px 14px;
+}
+.source-list span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+.empty{
+  border:1px dashed var(--line);
+  border-radius:18px;
+  padding:18px;
+  color:var(--muted);
+  background:rgba(255,255,255,.55);
+}
+@media (max-width:1100px){
+  .layout{grid-template-columns:1fr}
+  .detail-panel{position:static}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .page{padding:16px}
+  .hero,.board,.detail-panel{padding:18px}
+  .hero-top{flex-direction:column}
+  .hero-meta{justify-items:start}
+  .cards{grid-template-columns:1fr}
+  .field{min-width:unset;width:100%}
+  .detail-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <div class="hero-top">
+      <div>
+        <p class="eyebrow">Autoresearch-Equity Style Dashboard</p>
+        <h1>Iran Crisis Trade Board</h1>
+        <p class="hero-copy">Scenario frame: deeper Iran war, possible U.S. ground involvement, Hormuz closure or semi-closure, repeated strikes on Gulf oil and LNG assets, but also a non-trivial chance of an early ceasefire. The board ranks names by structural duration, torque, defensiveness, and how underfollowed they still look.</p>
+      </div>
+      <div class="hero-meta">
+        <div class="stamp" id="generated-stamp">Snapshot</div>
+        <div class="stamp" id="coverage-stamp">Coverage</div>
+      </div>
+    </div>
+    <div class="cards" id="summary-cards"></div>
+    <nav class="segment-nav" id="segment-nav"></nav>
+  </section>
+
+  <section class="layout">
+    <section class="board">
+      <div class="toolbar">
+        <div class="toolbar-group">
+          <input class="field" id="search-input" type="search" placeholder="Search ticker, company, thesis, role">
+          <select class="select" id="sort-select">
+            <option value="totalScore">Sort: Total score</option>
+            <option value="torque">Sort: Torque</option>
+            <option value="defensive">Sort: Defensive</option>
+            <option value="discovery">Sort: Discovery</option>
+            <option value="peaceDurability">Sort: Early-peace durability</option>
+            <option value="warBeta">Sort: War beta</option>
+            <option value="currentPrice">Sort: Price</option>
+            <option value="ticker">Sort: Ticker</option>
+          </select>
+          <button class="toggle active" id="direction-toggle" type="button">Desc</button>
+        </div>
+        <div class="toolbar-group">
+          <button class="toggle active" type="button" data-filter="all">All</button>
+          <button class="toggle" type="button" data-filter="long">Longs</button>
+          <button class="toggle" type="button" data-filter="short">Shorts</button>
+          <button class="toggle" type="button" data-filter="avoid">Avoid</button>
+        </div>
+      </div>
+      <p class="board-note" id="board-note"></p>
+      <div class="segments" id="segments"></div>
+    </section>
+
+    <aside class="detail-panel">
+      <div class="detail-top" id="detail-top"></div>
+      <div class="sources">
+        <p class="eyebrow">Primary Sources</p>
+        <ul class="source-list" id="source-list"></ul>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<script src="./iran-dashboard-data.js"></script>
+<script src="./iran-dashboard.js"></script>
+</body>
+</html>
