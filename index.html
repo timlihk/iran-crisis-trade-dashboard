@@ -104,7 +104,7 @@ a{color:inherit}
 }
 .cards{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:repeat(5,minmax(0,1fr));
   gap:14px;
 }
 .card{
@@ -544,6 +544,72 @@ tbody tr.is-selected{background:rgba(20,92,77,.08)}
   font-size:12px;
   margin-top:4px;
 }
+.badge-new{
+  display:inline-flex;
+  align-items:center;
+  padding:3px 7px;
+  border-radius:999px;
+  background:linear-gradient(135deg, #145c4d, #1a7a66);
+  color:#fff;
+  font-family:var(--mono);
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin-left:6px;
+  vertical-align:middle;
+}
+.heatmap{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(72px, 1fr));
+  gap:6px;
+  margin-top:12px;
+}
+.heatmap-cell{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:8px 6px;
+  text-align:center;
+  cursor:pointer;
+  transition:transform .12s, box-shadow .12s;
+  font-size:11px;
+}
+.heatmap-cell:hover{
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(44,34,21,.12);
+}
+.heatmap-cell .h-ticker{
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:12px;
+  display:block;
+  margin-bottom:4px;
+}
+.heatmap-cell .h-score{
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--muted);
+}
+.heatmap-cell.h-strong{background:var(--accent-soft)}
+.heatmap-cell.h-medium{background:var(--torque-soft)}
+.heatmap-cell.h-weak{background:var(--danger-soft)}
+.heatmap-cell.h-neutral{background:#f1eadc}
+.heatmap-toggle{
+  display:inline-flex;
+  padding:8px 14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--panel-strong);
+  color:var(--muted);
+  font-family:var(--sans);
+  font-size:13px;
+  cursor:pointer;
+}
+.heatmap-toggle.active{
+  background:var(--ink);
+  color:#fff;
+  border-color:var(--ink);
+}
 .empty{
   border:1px dashed var(--line);
   border-radius:18px;
@@ -554,6 +620,9 @@ tbody tr.is-selected{background:rgba(20,92,77,.08)}
 @media (max-width:1100px){
   .layout{grid-template-columns:1fr}
   .detail-panel{position:static}
+  .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:900px){
   .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:720px){
@@ -595,8 +664,10 @@ tbody tr.is-selected{background:rgba(20,92,77,.08)}
             <option value="torque">Sort: Torque</option>
             <option value="defensive">Sort: Defensive</option>
             <option value="discovery">Sort: Discovery</option>
+            <option value="structural">Sort: Structural</option>
             <option value="peaceDurability">Sort: Early-peace durability</option>
             <option value="warBeta">Sort: War beta</option>
+            <option value="fragility">Sort: Fragility</option>
             <option value="relativeStrength">Sort: Relative strength</option>
             <option value="oneYearReturn">Sort: 1Y return</option>
             <option value="currentPrice">Sort: Price</option>
@@ -609,6 +680,10 @@ tbody tr.is-selected{background:rgba(20,92,77,.08)}
           <button class="toggle" type="button" data-filter="long">Longs</button>
           <button class="toggle" type="button" data-filter="short">Shorts</button>
           <button class="toggle" type="button" data-filter="avoid">Avoid</button>
+          <select class="select" id="segment-filter">
+            <option value="all">All Segments</option>
+          </select>
+          <button class="heatmap-toggle" id="heatmap-toggle" type="button">Heatmap</button>
         </div>
       </div>
       <p class="board-note" id="board-note"></p>

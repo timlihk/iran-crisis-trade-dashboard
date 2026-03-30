@@ -11,7 +11,7 @@ OUTPUT_FILE = Path("/tmp/iran_metrics.json")
 
 def load_tickers():
     text = DATA_FILE.read_text()
-    return re.findall(r'ticker: "([A-Z]+)"', text)
+    return re.findall(r'"ticker": "([A-Z]+)"', text)
 
 
 def fetch_metrics(symbol):
@@ -64,6 +64,8 @@ def main():
     symbol_map = {
         "TKGSY": "TKGSY",
         "KAEPY": "KAEPY",
+        "LSB": "LXU",
+        "CEIX": "CNR",
     }
     tickers = load_tickers()
     data = {}

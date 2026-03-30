@@ -6,11 +6,15 @@
     return;
   }
 
+  const NEW_TICKERS = new Set(["EQT","AR","TRGP","LEU","CCJ","BTU","CEIX","EQNR","LSB","STNG","FRO","ZIM","RTX","PANW"]);
+
   const state = {
     search: "",
     sortKey: "totalScore",
     sortDirection: "desc",
     filter: "all",
+    segmentFilter: "all",
+    showHeatmap: false,
     selectedTicker: data.rows[0]?.ticker || null
   };
 
@@ -27,7 +31,9 @@
     searchInput: document.getElementById("search-input"),
     sortSelect: document.getElementById("sort-select"),
     directionToggle: document.getElementById("direction-toggle"),
-    filterButtons: Array.from(document.querySelectorAll("[data-filter]"))
+    filterButtons: Array.from(document.querySelectorAll("[data-filter]")),
+    segmentFilter: document.getElementById("segment-filter"),
+    heatmapToggle: document.getElementById("heatmap-toggle")
   };
 
   bindEvents();
@@ -56,6 +62,20 @@
         elements.filterButtons.forEach((candidate) => candidate.classList.toggle("active", candidate === button));
         render();
       });
+    });
+
+    elements.segmentFilter.innerHTML = '<option value="all">All Segments</option>' +
+      data.segmentOrder.map((seg) => `<option value="${escapeHtml(seg)}">${escapeHtml(seg)}</option>`).join("");
+
+    elements.segmentFilter.addEventListener("change", (event) => {
+      state.segmentFilter = event.target.value;
+      render();
+    });
+
+    elements.heatmapToggle.addEventListener("click", () => {
+      state.showHeatmap = !state.showHeatmap;
+      elements.heatmapToggle.classList.toggle("active", state.showHeatmap);
+      render();
     });
 
     elements.segments.addEventListener("click", (event) => {
@@ -87,6 +107,9 @@
         return false;
       }
       if (state.filter === "avoid" && row.verdict !== "AVOID") {
+        return false;
+      }
+      if (state.segmentFilter !== "all" && row.segment !== state.segmentFilter) {
         return false;
       }
 
@@ -151,10 +174,14 @@
         return row.defensive;
       case "discovery":
         return row.discovery;
+      case "structural":
+        return row.structural;
       case "peaceDurability":
         return row.peaceDurability;
       case "warBeta":
         return row.warBeta;
+      case "fragility":
+        return row.fragility;
       case "relativeStrength":
         return row.relativeStrength;
       case "oneYearReturn":
@@ -235,23 +262,48 @@
     elements.boardNote.textContent = `Scenario: ${data.scenario} Showing ${filteredRows.length} names across ${groupedRows.length} groups. Sort inside each group by ${prettySortKey(state.sortKey)}. Price snapshot date: ${data.priceDate}.`;
   }
 
+  function renderHeatmap(filteredRows) {
+    const sorted = filteredRows.slice().sort((a, b) => b[state.sortKey] - a[state.sortKey] || b.totalScore - a.totalScore);
+    return `
+      <div class="heatmap">
+        ${sorted.map((row) => {
+          const val = getSortValue(row, state.sortKey);
+          const cls = val >= 75 ? "h-strong" : val >= 50 ? "h-medium" : val >= 25 ? "h-neutral" : "h-weak";
+          const isNew = NEW_TICKERS.has(row.ticker);
+          return `
+            <div class="heatmap-cell ${cls}" data-select-ticker="${escapeHtml(row.ticker)}" title="${escapeHtml(row.name)} — ${escapeHtml(row.segment)}">
+              <span class="h-ticker">${escapeHtml(row.ticker)}${isNew ? '<span class="badge-new" style="margin-left:3px;font-size:7px;">NEW</span>' : ''}</span>
+              <span class="h-score">${val != null ? Math.round(val) : "n/a"}</span>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    `;
+  }
+
   function renderSegments(groupedRows) {
     if (!groupedRows.length) {
       elements.segments.innerHTML = '<div class="empty">No ideas match the current filter.</div>';
       return;
     }
 
-    elements.segments.innerHTML = groupedRows.map((group) => {
+    const allFiltered = groupedRows.flatMap((g) => g.rows);
+    const heatmapHtml = state.showHeatmap ? renderHeatmap(allFiltered) : "";
+
+    elements.segments.innerHTML = heatmapHtml + groupedRows.map((group) => {
       const avgScore = average(group.rows.map((row) => row.totalScore));
       const avgDiscovery = average(group.rows.map((row) => row.discovery));
       const avgDurability = average(group.rows.map((row) => row.peaceDurability));
+
+      const newCount = group.rows.filter((row) => NEW_TICKERS.has(row.ticker)).length;
+      const newLabel = newCount > 0 ? ` <span class="badge-new">${newCount} NEW</span>` : "";
 
       return `
         <section class="segment-card" id="segment-${slugify(group.segment)}">
           <header class="segment-header">
             <div>
               <p class="eyebrow">Segment</p>
-              <h2>${escapeHtml(group.segment)}</h2>
+              <h2>${escapeHtml(group.segment)}${newLabel}</h2>
               <p class="segment-meta">${group.rows.length} names grouped here.</p>
             </div>
             <div class="segment-badges">
@@ -292,6 +344,7 @@
 
   function renderRow(row) {
     const selected = row.ticker === state.selectedTicker;
+    const isNew = NEW_TICKERS.has(row.ticker);
 
     return `
       <tr class="${selected ? "is-selected" : ""}">
@@ -299,7 +352,7 @@
           <button class="idea-button" type="button" data-select-ticker="${escapeHtml(row.ticker)}">
             <span class="ticker-dot">${escapeHtml(row.ticker.slice(0, 4))}</span>
             <span class="identity">
-              <span class="ticker">${escapeHtml(row.ticker)}</span>
+              <span class="ticker">${escapeHtml(row.ticker)}${isNew ? '<span class="badge-new">NEW</span>' : ''}</span>
               <span class="company">${escapeHtml(row.name)}</span>
               <span class="subcopy">${escapeHtml(row.segment)}</span>
             </span>
@@ -688,7 +741,21 @@
       NCLH: "NYSE:NCLH",
       LYB: "NYSE:LYB",
       CCL: "NYSE:CCL",
-      NFE: "NASDAQ:NFE"
+      NFE: "NASDAQ:NFE",
+      EQT: "NYSE:EQT",
+      AR: "NYSE:AR",
+      TRGP: "NYSE:TRGP",
+      LEU: "AMEX:LEU",
+      CCJ: "NYSE:CCJ",
+      BTU: "NYSE:BTU",
+      CEIX: "NYSE:CNR",
+      EQNR: "NYSE:EQNR",
+      LSB: "NYSE:LXU",
+      STNG: "NYSE:STNG",
+      FRO: "NYSE:FRO",
+      ZIM: "NYSE:ZIM",
+      RTX: "NYSE:RTX",
+      PANW: "NASDAQ:PANW"
     };
 
     return exchangeMap[row.ticker] || null;
